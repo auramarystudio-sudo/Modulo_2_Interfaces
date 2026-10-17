@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Monitor, Globe, Zap, Layers, Terminal } from 'lucide-react';
+import { Home, Monitor, Globe, Zap, Layers, Terminal, Wrench } from 'lucide-react';
 
 export default function Layout({ children }) {
   const location = useLocation();
@@ -9,6 +9,7 @@ export default function Layout({ children }) {
     { to: '/interfaces', icon: Monitor, label: 'Interfaces', color: 'cyan' },
     { to: '/servidores', icon: Globe, label: 'Servidores', color: 'purple' },
     { to: '/lanzadores', icon: Terminal, label: 'Lanzadores', color: 'green' },
+    { to: '/herramientas', icon: Wrench, label: 'Herramientas', color: 'indigo' },
     { to: '/sesiones', icon: Layers, label: 'Sesiones', color: 'amber' },
   ];
 
@@ -32,6 +33,7 @@ export default function Layout({ children }) {
                   cyan: active ? 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30 shadow-cyan-500/5' : '',
                   purple: active ? 'bg-purple-500/10 text-purple-300 border-purple-500/30 shadow-purple-500/5' : '',
                   green: active ? 'bg-green-500/10 text-green-300 border-green-500/30 shadow-green-500/5' : '',
+                  indigo: active ? 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30 shadow-indigo-500/5' : '',
                   amber: active ? 'bg-amber-500/10 text-amber-300 border-amber-500/30 shadow-amber-500/5' : '',
                 };
                 return (
