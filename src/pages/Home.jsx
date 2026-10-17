@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Monitor, Globe, Layers, Terminal, Server, Cpu, Zap, Network, ArrowRight, Activity } from 'lucide-react';
+import { Monitor, Globe, Layers, Terminal, Server, Cpu, Zap, Network, ArrowRight, Activity, FolderOpen, Database } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import pb from '../lib/pocketbase.js';
 
@@ -8,6 +8,8 @@ export default function Home() {
     interfaces: { total: 0, activos: 0 },
     servidores: { total: 0, activos: 0 },
     lanzadores: { total: 0, corriendo: 0 },
+    proyectos: { total: 0, corriendo: 0 },
+    basesDatos: { total: 0, corriendo: 0 },
     sesiones: { total: 0 },
     loading: true,
   });
@@ -15,10 +17,12 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       try {
-        const [interfaces, servidores, lanzadores, sesiones] = await Promise.all([
+        const [interfaces, servidores, lanzadores, proyectos, basesDatos, sesiones] = await Promise.all([
           pb.collection('interfaces_ui').getFullList().catch(() => []),
           pb.collection('servidores_red').getFullList().catch(() => []),
           pb.collection('lanzadores').getFullList().catch(() => []),
+          pb.collection('proyectos').getFullList().catch(() => []),
+          pb.collection('bases_datos').getFullList().catch(() => []),
           pb.collection('sesiones').getFullList().catch(() => []),
         ]);
 
@@ -34,6 +38,14 @@ export default function Home() {
           lanzadores: {
             total: lanzadores.length,
             corriendo: lanzadores.filter(l => l.estado === 'corriendo').length,
+          },
+          proyectos: {
+            total: proyectos.length,
+            corriendo: proyectos.filter(p => p.estado === 'corriendo').length,
+          },
+          basesDatos: {
+            total: basesDatos.length,
+            corriendo: basesDatos.filter(b => b.estado === 'corriendo').length,
           },
           sesiones: { total: sesiones.length },
           loading: false,
@@ -76,7 +88,7 @@ export default function Home() {
               <p className="text-xs text-slate-500">Resumen de tus servicios</p>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
             <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
@@ -143,6 +155,48 @@ export default function Home() {
             <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
+                  <FolderOpen size={16} className="text-pink-400" />
+                  <span className="text-sm font-semibold text-slate-200">Proyectos</span>
+                </div>
+                <span className="text-xs text-slate-500">{stats.proyectos.total} total</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-2 bg-slate-700/50 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full transition-all duration-500"
+                    style={{ width: stats.proyectos.total ? `${(stats.proyectos.corriendo / stats.proyectos.total) * 100}%` : '0%' }}
+                  />
+                </div>
+                <span className="text-xs text-pink-400 font-mono">
+                  {stats.proyectos.corriendo}/{stats.proyectos.total}
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-2">corriendo</p>
+            </div>
+            <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <Database size={16} className="text-teal-400" />
+                  <span className="text-sm font-semibold text-slate-200">BDs</span>
+                </div>
+                <span className="text-xs text-slate-500">{stats.basesDatos.total} total</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-2 bg-slate-700/50 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full transition-all duration-500"
+                    style={{ width: stats.basesDatos.total ? `${(stats.basesDatos.corriendo / stats.basesDatos.total) * 100}%` : '0%' }}
+                  />
+                </div>
+                <span className="text-xs text-teal-400 font-mono">
+                  {stats.basesDatos.corriendo}/{stats.basesDatos.total}
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-2">corriendo</p>
+            </div>
+            <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
                   <Layers size={16} className="text-amber-400" />
                   <span className="text-sm font-semibold text-slate-200">Sesiones</span>
                 </div>
@@ -162,7 +216,7 @@ export default function Home() {
       </div>
 
       {/* Tarjetas de módulos */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 max-w-7xl mx-auto mb-12">
         <Link to="/interfaces" className="group bg-slate-900/50 border border-slate-800/50 rounded-2xl p-6 backdrop-blur-sm shadow-xl hover:border-cyan-500/30 hover:shadow-cyan-500/5 transition-all">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg group-hover:shadow-cyan-500/20 transition">
@@ -213,6 +267,42 @@ export default function Home() {
             Gestiona Docker, PocketBase, aplicaciones NPM y otros servidores con comandos y variables de entorno.
           </p>
           <div className="flex items-center gap-2 text-green-400 text-sm font-medium group-hover:gap-3 transition-all">
+            <span>Explorar</span>
+            <ArrowRight className="w-4 h-4" />
+          </div>
+        </Link>
+        <Link to="/proyectos" className="group bg-slate-900/50 border border-slate-800/50 rounded-2xl p-6 backdrop-blur-sm shadow-xl hover:border-pink-500/30 hover:shadow-pink-500/5 transition-all">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center shadow-lg group-hover:shadow-pink-500/20 transition">
+              <FolderOpen className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-slate-100 group-hover:text-pink-300 transition">Proyectos</h2>
+              <p className="text-xs text-slate-500">Hosting local</p>
+            </div>
+          </div>
+          <p className="text-sm text-slate-400 mb-4 leading-relaxed">
+            Gestiona tus proyectos y aplicaciones locales con dominios virtuales y puertos personalizados.
+          </p>
+          <div className="flex items-center gap-2 text-pink-400 text-sm font-medium group-hover:gap-3 transition-all">
+            <span>Explorar</span>
+            <ArrowRight className="w-4 h-4" />
+          </div>
+        </Link>
+        <Link to="/bases-datos" className="group bg-slate-900/50 border border-slate-800/50 rounded-2xl p-6 backdrop-blur-sm shadow-xl hover:border-teal-500/30 hover:shadow-teal-500/5 transition-all">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center shadow-lg group-hover:shadow-teal-500/20 transition">
+              <Database className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-slate-100 group-hover:text-teal-300 transition">BDs</h2>
+              <p className="text-xs text-slate-500">Bases de datos</p>
+            </div>
+          </div>
+          <p className="text-sm text-slate-400 mb-4 leading-relaxed">
+            Gestiona conexiones a PostgreSQL, MySQL, MongoDB, Redis y más bases de datos locales.
+          </p>
+          <div className="flex items-center gap-2 text-teal-400 text-sm font-medium group-hover:gap-3 transition-all">
             <span>Explorar</span>
             <ArrowRight className="w-4 h-4" />
           </div>

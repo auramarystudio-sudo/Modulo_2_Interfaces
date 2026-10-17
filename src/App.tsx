@@ -4,6 +4,8 @@ import Home from './pages/Home.jsx';
 import Interfaces from './pages/Interfaces.jsx';
 import Servidores from './pages/Servidores.jsx';
 import Lanzadores from './pages/Lanzadores.jsx';
+import Proyectos from './pages/Proyectos.jsx';
+import BasesDatos from './pages/BasesDatos.jsx';
 import Herramientas from './pages/Herramientas.jsx';
 import Sesiones from './pages/Sesiones.jsx';
 import KeyboardShortcuts from './components/shortcuts/KeyboardShortcuts.jsx';
@@ -18,6 +20,8 @@ export default function App() {
           <Route path="/interfaces" element={<Interfaces />} />
           <Route path="/servidores" element={<Servidores />} />
           <Route path="/lanzadores" element={<Lanzadores />} />
+          <Route path="/proyectos" element={<Proyectos />} />
+          <Route path="/bases-datos" element={<BasesDatos />} />
           <Route path="/herramientas" element={<Herramientas />} />
           <Route path="/sesiones" element={<Sesiones />} />
         </Routes>

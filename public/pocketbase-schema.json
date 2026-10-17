@@ -55,6 +55,45 @@
       ]
     },
     {
+      "name": "proyectos",
+      "type": "base",
+      "system": false,
+      "schema": [
+        { "name": "nombre", "type": "text", "required": true },
+        { "name": "tipo", "type": "select", "required": true, "options": { "values": ["nodejs", "python", "php", "static", "docker", "other"] } },
+        { "name": "ruta", "type": "text", "required": true },
+        { "name": "comando_inicio", "type": "text" },
+        { "name": "puerto", "type": "number" },
+        { "name": "url_acceso", "type": "url" },
+        { "name": "dominio_local", "type": "text" },
+        { "name": "lanzador_id", "type": "text" },
+        { "name": "descripcion", "type": "text" },
+        { "name": "estado", "type": "select", "options": { "values": ["detenido", "corriendo", "error"] } },
+        { "name": "favorito", "type": "bool" },
+        { "name": "veces_usado", "type": "number" },
+        { "name": "ultimo_uso", "type": "date" }
+      ]
+    },
+    {
+      "name": "bases_datos",
+      "type": "base",
+      "system": false,
+      "schema": [
+        { "name": "nombre", "type": "text", "required": true },
+        { "name": "tipo", "type": "select", "required": true, "options": { "values": ["sqlite", "postgresql", "mysql", "mongodb", "redis", "other"] } },
+        { "name": "host", "type": "text" },
+        { "name": "puerto", "type": "number" },
+        { "name": "nombre_bd", "type": "text" },
+        { "name": "usuario", "type": "text" },
+        { "name": "password", "type": "text" },
+        { "name": "conexion_string", "type": "text" },
+        { "name": "proyecto_id", "type": "text" },
+        { "name": "descripcion", "type": "text" },
+        { "name": "estado", "type": "select", "options": { "values": ["detenido", "corriendo", "error"] } },
+        { "name": "favorito", "type": "bool" }
+      ]
+    },
+    {
       "name": "sesiones",
       "type": "base",
       "system": false,

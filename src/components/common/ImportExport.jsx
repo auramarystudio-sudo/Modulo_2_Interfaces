@@ -7,8 +7,19 @@ export default function ImportExport({ type, items, onImported }) {
   const [statusMsg, setStatusMsg] = useState('');
   const fileInputRef = useRef(null);
 
-  const collectionName = type === 'interfaces' ? 'interfaces_ui' : type === 'lanzadores' ? 'lanzadores' : 'servidores_red';
-  const typeName = type === 'interfaces' ? 'Interfaces' : type === 'lanzadores' ? 'Lanzadores' : 'Servidores';
+  const collectionName = 
+    type === 'interfaces' ? 'interfaces_ui' : 
+    type === 'servidores' ? 'servidores_red' : 
+    type === 'lanzadores' ? 'lanzadores' : 
+    type === 'proyectos' ? 'proyectos' : 
+    type === 'bases_datos' ? 'bases_datos' : 'interfaces_ui';
+  
+  const typeName = 
+    type === 'interfaces' ? 'Interfaces' : 
+    type === 'servidores' ? 'Servidores' : 
+    type === 'lanzadores' ? 'Lanzadores' : 
+    type === 'proyectos' ? 'Proyectos' : 
+    type === 'bases_datos' ? 'Bases de Datos' : 'Interfaces';
 
   const handleExport = () => {
     const data = { version: '1.0', type, exportedAt: new Date().toISOString(), items };
