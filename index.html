@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Local Manager - Interfaces, Servidores y Sesiones de IA Local</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Estilos base para evitar flash */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #020617;
+        color: #f1f5f9;
+      }
+      html.light,
+      html.light body {
+        background-color: #020617 !important;
+        color: #f1f5f9;
+      }
+      html.dark,
+      html.dark body {
+        background-color: #020617 !important;
+        color: #f1f5f9;
+      }
+      #root {
+        min-height: 100vh;
+      }
+    </style>
+    <script>
+      // Aplicar tema dark por defecto
+      (function () {
+        document.documentElement.classList.add("dark");
+        document.documentElement.setAttribute("data-theme", "dark");
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

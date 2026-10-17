@@ -1,0 +1,108 @@
+{
+  "collections": [
+    {
+      "name": "interfaces_ui",
+      "type": "base",
+      "system": false,
+      "schema": [
+        { "name": "nombre", "type": "text", "required": true },
+        { "name": "tipo", "type": "select", "required": true, "options": { "values": ["automatic1111", "comfyui", "forge", "fooocus", "sdnext", "otra"] } },
+        { "name": "url_local", "type": "url", "required": true },
+        { "name": "puerto", "type": "number", "required": true },
+        { "name": "comando_lanzamiento", "type": "text" },
+        { "name": "descripcion", "type": "text" },
+        { "name": "estado", "type": "select", "options": { "values": ["activo", "inactivo", "mantenimiento"] } },
+        { "name": "favorito", "type": "bool" },
+        { "name": "veces_usado", "type": "number" },
+        { "name": "ultimo_uso", "type": "date" }
+      ]
+    },
+    {
+      "name": "servidores_red",
+      "type": "base",
+      "system": false,
+      "schema": [
+        { "name": "nombre", "type": "text", "required": true },
+        { "name": "tipo_servidor", "type": "select", "required": true, "options": { "values": ["chatbox_ui", "api_backend", "sd_server"] } },
+        { "name": "ip_red", "type": "text", "required": true },
+        { "name": "puerto", "type": "number", "required": true },
+        { "name": "url_acceso", "type": "url", "required": true },
+        { "name": "descripcion", "type": "text" },
+        { "name": "modelos_disponibles", "type": "text" },
+        { "name": "estado", "type": "select", "options": { "values": ["activo", "inactivo"] } },
+        { "name": "favorito", "type": "bool" },
+        { "name": "veces_usado", "type": "number" },
+        { "name": "ultimo_uso", "type": "date" }
+      ]
+    },
+    {
+      "name": "lanzadores",
+      "type": "base",
+      "system": false,
+      "schema": [
+        { "name": "nombre", "type": "text", "required": true },
+        { "name": "tipo", "type": "select", "required": true, "options": { "values": ["docker", "npm", "pocketbase", "python", "custom"] } },
+        { "name": "comando", "type": "text", "required": true },
+        { "name": "directorio", "type": "text" },
+        { "name": "puerto", "type": "number" },
+        { "name": "url_acceso", "type": "url" },
+        { "name": "variables_entorno", "type": "text" },
+        { "name": "descripcion", "type": "text" },
+        { "name": "estado", "type": "select", "options": { "values": ["detenido", "corriendo", "error"] } },
+        { "name": "favorito", "type": "bool" },
+        { "name": "veces_usado", "type": "number" },
+        { "name": "ultimo_uso", "type": "date" }
+      ]
+    },
+    {
+      "name": "proyectos",
+      "type": "base",
+      "system": false,
+      "schema": [
+        { "name": "nombre", "type": "text", "required": true },
+        { "name": "tipo", "type": "select", "required": true, "options": { "values": ["nodejs", "python", "php", "static", "docker", "other"] } },
+        { "name": "ruta", "type": "text", "required": true },
+        { "name": "comando_inicio", "type": "text" },
+        { "name": "puerto", "type": "number" },
+        { "name": "url_acceso", "type": "url" },
+        { "name": "dominio_local", "type": "text" },
+        { "name": "lanzador_id", "type": "text" },
+        { "name": "descripcion", "type": "text" },
+        { "name": "estado", "type": "select", "options": { "values": ["detenido", "corriendo", "error"] } },
+        { "name": "favorito", "type": "bool" },
+        { "name": "veces_usado", "type": "number" },
+        { "name": "ultimo_uso", "type": "date" }
+      ]
+    },
+    {
+      "name": "bases_datos",
+      "type": "base",
+      "system": false,
+      "schema": [
+        { "name": "nombre", "type": "text", "required": true },
+        { "name": "tipo", "type": "select", "required": true, "options": { "values": ["sqlite", "postgresql", "mysql", "mongodb", "redis", "other"] } },
+        { "name": "host", "type": "text" },
+        { "name": "puerto", "type": "number" },
+        { "name": "nombre_bd", "type": "text" },
+        { "name": "usuario", "type": "text" },
+        { "name": "password", "type": "text" },
+        { "name": "conexion_string", "type": "text" },
+        { "name": "proyecto_id", "type": "text" },
+        { "name": "descripcion", "type": "text" },
+        { "name": "estado", "type": "select", "options": { "values": ["detenido", "corriendo", "error"] } },
+        { "name": "favorito", "type": "bool" }
+      ]
+    },
+    {
+      "name": "sesiones",
+      "type": "base",
+      "system": false,
+      "schema": [
+        { "name": "nombre", "type": "text", "required": true },
+        { "name": "descripcion", "type": "text" },
+        { "name": "interfaces_ids", "type": "text" },
+        { "name": "servidores_ids", "type": "text" }
+      ]
+    }
+  ]
+}
