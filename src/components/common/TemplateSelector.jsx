@@ -1,4 +1,17 @@
-import { Zap, Monitor, Globe, X } from 'lucide-react';
+import { Zap, Monitor, Globe, Terminal, X } from 'lucide-react';
+
+export const LANZADOR_TEMPLATES = [
+  { id: 'pocketbase', nombre: 'PocketBase', tipo: 'pocketbase', comando: './pocketbase serve --http=0.0.0.0:8090', directorio: '/opt/pocketbase', puerto: 8090, url_acceso: 'http://localhost:8090', descripcion: 'Backend open-source con SQLite, auth y admin UI' },
+  { id: 'docker-pb', nombre: 'PocketBase Docker', tipo: 'docker', comando: 'docker run -d --name pocketbase -p 8090:8090 -v /data/pb:/pb/pb_data ghcr.io/pocketbase/pocketbase:latest', directorio: '', puerto: 8090, url_acceso: 'http://localhost:8090', descripcion: 'PocketBase en contenedor Docker' },
+  { id: 'docker-ollama', nombre: 'Ollama Docker', tipo: 'docker', comando: 'docker run -d --name ollama -p 11434:11434 -v ollama_data:/root/.ollama ollama/ollama:latest', directorio: '', puerto: 11434, url_acceso: 'http://localhost:11434', descripcion: 'Ollama en Docker para LLMs' },
+  { id: 'docker-openwebui', nombre: 'Open WebUI', tipo: 'docker', comando: 'docker run -d --name open-webui -p 3000:8080 --add-host=host.docker.internal:host-gateway ghcr.io/open-webui/open-webui:main', directorio: '', puerto: 3000, url_acceso: 'http://localhost:3000', descripcion: 'Interfaz web para Ollama' },
+  { id: 'npm-dev', nombre: 'NPM Dev Server', tipo: 'npm', comando: 'npm run dev', directorio: '~/proyectos/mi-app', puerto: 5173, url_acceso: 'http://localhost:5173', descripcion: 'Servidor de desarrollo Vite/React' },
+  { id: 'npm-build', nombre: 'NPM Build + Serve', tipo: 'npm', comando: 'npm run build && npm run preview', directorio: '~/proyectos/mi-app', puerto: 4173, url_acceso: 'http://localhost:4173', descripcion: 'Build de producción con preview' },
+  { id: 'python-fastapi', nombre: 'FastAPI', tipo: 'python', comando: 'uvicorn main:app --reload --host 0.0.0.0 --port 8000', directorio: '~/proyectos/api-python', puerto: 8000, url_acceso: 'http://localhost:8000', descripcion: 'API REST con FastAPI y hot-reload' },
+  { id: 'python-flask', nombre: 'Flask', tipo: 'python', comando: 'flask --app app run --host 0.0.0.0 --port 5000 --debug', directorio: '~/proyectos/flask-app', puerto: 5000, url_acceso: 'http://localhost:5000', descripcion: 'Servidor Flask con modo debug' },
+  { id: 'docker-redis', nombre: 'Redis', tipo: 'docker', comando: 'docker run -d --name redis -p 6379:6379 redis:latest', directorio: '', puerto: 6379, url_acceso: '', descripcion: 'Base de datos en memoria Redis' },
+  { id: 'docker-postgres', nombre: 'PostgreSQL', tipo: 'docker', comando: 'docker run -d --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=secret -v pgdata:/var/lib/postgresql/data postgres:15', directorio: '', puerto: 5432, url_acceso: '', descripcion: 'Base de datos PostgreSQL' },
+];
 
 export const INTERFACE_TEMPLATES = [
   { id: 'a1111', nombre: 'AUTOMATIC1111', tipo: 'automatic1111', url_local: 'http://127.0.0.1:7860', puerto: 7860, comando_lanzamiento: 'webui-user.bat --xformers --api', descripcion: 'Interfaz web estándar para Stable Diffusion', icono: '🎨' },
@@ -17,8 +30,8 @@ export const SERVER_TEMPLATES = [
 ];
 
 export default function TemplateSelector({ type, onSelect, onClose }) {
-  const templates = type === 'interface' ? INTERFACE_TEMPLATES : SERVER_TEMPLATES;
-  const Icon = type === 'interface' ? Monitor : Globe;
+  const templates = type === 'interface' ? INTERFACE_TEMPLATES : type === 'lanzador' ? LANZADOR_TEMPLATES : SERVER_TEMPLATES;
+  const Icon = type === 'interface' ? Monitor : type === 'lanzador' ? Terminal : Globe;
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>

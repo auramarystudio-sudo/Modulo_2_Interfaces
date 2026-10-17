@@ -36,6 +36,25 @@
       ]
     },
     {
+      "name": "lanzadores",
+      "type": "base",
+      "system": false,
+      "schema": [
+        { "name": "nombre", "type": "text", "required": true },
+        { "name": "tipo", "type": "select", "required": true, "options": { "values": ["docker", "npm", "pocketbase", "python", "custom"] } },
+        { "name": "comando", "type": "text", "required": true },
+        { "name": "directorio", "type": "text" },
+        { "name": "puerto", "type": "number" },
+        { "name": "url_acceso", "type": "url" },
+        { "name": "variables_entorno", "type": "text" },
+        { "name": "descripcion", "type": "text" },
+        { "name": "estado", "type": "select", "options": { "values": ["detenido", "corriendo", "error"] } },
+        { "name": "favorito", "type": "bool" },
+        { "name": "veces_usado", "type": "number" },
+        { "name": "ultimo_uso", "type": "date" }
+      ]
+    },
+    {
       "name": "sesiones",
       "type": "base",
       "system": false,
